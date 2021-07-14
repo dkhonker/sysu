@@ -1,0 +1,37 @@
+#include<stdio.h>
+
+const int Maxn = 100;
+const int MaxConsume = 200;
+
+int n, r[Maxn + 1], p[Maxn + 1];
+
+int taskProcess() {
+	int cnt = 0, t = 0, tasknum = n; 
+	for(;tasknum!=0;) {
+		int min = MaxConsume + 1, j=0,x;
+		for (int i = 1,x = MaxConsume; i <= n; i++) {
+			if (t >= r[i] && p[i] > 0 && p[i] < min) {
+				if(x>p[i]){
+					x = p[i];
+					j = i;
+			}
+			}
+		}
+		p[j]--; t++;
+		if (p[j] == 0){
+			cnt = cnt + t;
+			tasknum--;
+		}
+	}
+	return cnt;
+}
+
+int main() {
+	scanf("%d", &n);
+	for (int i = 1; i <= n; i++)
+		scanf("%d", &r[i]);
+	for (int i = 1; i <= n; i++)
+		scanf("%d", &p[i]);
+	printf("%d", taskProcess());
+	return 0;
+}
